@@ -11,6 +11,7 @@ import {
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UsersService } from './users.service';
+import { AuthServices } from './auth.service';
 import { NotFoundException } from '@nestjs/common';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
@@ -18,11 +19,19 @@ import { UserDto } from './dtos/user.dto';
 @Controller('auth')
 @Serialize(UserDto)
 export class UsersController {
-  constructor(private userService: UsersService) {}
+  constructor(
+    private userService: UsersService,
+    private authService: AuthServices,
+  ) {}
 
   @Post('/signup')
   createUser(@Body() body: CreateUserDto) {
-    return this.userService.create(body.email, body.password);
+    return this.authService.signup(body.email, body.password);
+  }
+
+  @Post('/signin')
+  signin(@Body() body: CreateUserDto) {
+    return this.authService.signin(body.email, body.password);
   }
 
   @Get('/:id')
