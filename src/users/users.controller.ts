@@ -16,6 +16,8 @@ import { AuthServices } from './auth.service';
 import { NotFoundException } from '@nestjs/common';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
+import { currentUser } from './decorators/current-user.decorator';
+import { User } from './user.entity';
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -26,8 +28,8 @@ export class UsersController {
   ) {}
 
   @Get('/WhoAmI')
-  whoAmI(@Session() session: any) {
-    return this.userService.findOne(session.userId);
+  whoAmI(@currentUser() user: User) {
+    return user;
   }
 
   @Post('/signup')
