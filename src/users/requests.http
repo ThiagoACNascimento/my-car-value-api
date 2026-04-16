@@ -1,8 +1,41 @@
-# Create a New User
+### Create a New User
 POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email":  "pablo@fasdfaf.dfds",
+    "email":  "monikaaaa@fasdfaf.dfds",
+    "password": "12312132313"
+}
+
+### Signin 
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email":  "monika@fasdfaf.dfds",
     "password": "12312"
 }
+
+### Signout
+POST http://localhost:3000/auth/signout
+Content-Type: application/json
+
+### Find Who Am I
+GET http://localhost:3000/auth/WhoAmI
+
+### Find User By Id
+GET http://localhost:3000/auth/3
+
+### Find All Users
+GET http://localhost:3000/auth?email=pablo@fasdfaf.dfds
+
+### Update User
+PATCH  http://localhost:3000/auth/1212
+Content-Type: application/json
+
+{
+    "email": "sfsfsafsffs@afasdf.fafd"
+}
+
+### Delete User By Id
+DELETE  http://localhost:3000/auth/11231
