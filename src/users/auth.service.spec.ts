@@ -25,11 +25,11 @@ describe('AuthService', () => {
     service = module.get(AuthServices);
   });
 
-  it('can create and instance of auth service', () => {
+  it('Can create and instance of auth service', () => {
     expect(service).toBeDefined();
   });
 
-  it('creates a new user with a salted and hashed password', async () => {
+  it('Creates a new user with a salted and hashed password', async () => {
     const user = await service.signup('test@test.com', 'teste123');
 
     expect(user).toEqual({
@@ -58,5 +58,30 @@ describe('AuthService', () => {
     await expect(
       service.signin('asdfasfas@asdfa.adsf', 'asdfasdf'),
     ).rejects.toThrow(BadRequestException);
+  });
+
+  it('Throws if an invalid password is provided', async () => {
+    fakeUserService.find = () =>
+      Promise.resolve([
+        { email: 'asdfads@adfssf.dsfas', password: 'adsfasfa' } as User,
+      ]);
+
+    await expect(
+      service.signin('adsfaadsf@asdfas.fasdf', 'asdfasdf'),
+    ).rejects.toThrow(BadRequestException);
+  });
+
+  it('Returns a user if correct password is provided', async () => {
+    fakeUserService.find = () =>
+      Promise.resolve([
+        {
+          email: 'asdfads@adfssf.dsfas',
+          password:
+            'c586c2fdf69e0bc4.d7909fdb7f649c20584373bbe71e7b008b6ae50fc713460d9b6780c13585a6d7',
+        } as User,
+      ]);
+
+    const user = await service.signin('adsfaadsf@asdfas.fasdf', 'mypass');
+    expect(user).toBeDefined();
   });
 });
