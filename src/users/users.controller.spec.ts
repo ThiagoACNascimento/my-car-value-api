@@ -26,8 +26,10 @@ describe('UsersController', () => {
       // update: () => {},
     };
     fakeAuthService = {
-      // signup: () => {},
-      // signin: () => {
+      signin: (email: string, password: string) => {
+        return Promise.resolve({ id: 1, email, password } as User);
+      },
+      // signup: () => {}
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -60,5 +62,19 @@ describe('UsersController', () => {
 
     expect(users.length).toEqual(1);
     expect(users[0].email).toEqual('adasf@fadsdf.dsfsd');
+  });
+
+  it('Signin updates session object and returns user', async () => {
+    const session = { userId: -10 };
+    const user = await controller.signin(
+      {
+        email: 'fasdfd@fad.adf',
+        password: 'asdf',
+      },
+      session,
+    );
+
+    expect(user.id).toEqual(1);
+    expect(session.userId).toEqual(1);
   });
 });
