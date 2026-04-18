@@ -5,7 +5,7 @@ import { User } from './user.entity';
 import { BadRequestException } from '@nestjs/common';
 
 describe('AuthService', () => {
-  let service = AuthServices;
+  let service: AuthServices;
   let fakeUserService: Partial<UsersService>;
 
   beforeEach(async () => {
