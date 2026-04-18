@@ -31,6 +31,24 @@ describe('Authentication System', () => {
       });
   });
 
+  it('signup as a new user then get th currently logged in user', async () => {
+    const email = 'asdfs@fadsf.adf';
+
+    const response = await request(app.getHttpServer())
+      .post('/auth/signup')
+      .send({ email, password: 'asd' })
+      .expect(201);
+
+    const cookie: string[] = response.get('Set-Cookie') || [];
+
+    const { body } = (await request(app.getHttpServer())
+      .get('/auth/WhoAmI')
+      .set('Cookie', cookie)
+      .expect(200)) as { body: { id: number; email: string } };
+
+    expect(body.email).toEqual(email);
+  });
+
   afterEach(async () => {
     await app.close();
   });
