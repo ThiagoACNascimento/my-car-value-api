@@ -58,28 +58,23 @@ describe('AuthService', () => {
   });
 
   it('Throws an error if user signs up with email that is in use', async () => {
-    fakeUserService.find = () =>
-      Promise.resolve([{ id: 1, email: 'a', password: 'a' } as User]);
-    await expect(service.signup('asdf@asdf.com', 'asdf')).rejects.toThrow(
+    await service.signup('aaa@aaa.aaa', 'aaa');
+    await expect(service.signup('aaa@aaa.aaa', 'aaa')).rejects.toThrow(
       BadRequestException,
     );
   });
 
   it('Throws if signin is called with an unused email', async () => {
-    await expect(
-      service.signin('asdfasfas@asdfa.adsf', 'asdfasdf'),
-    ).rejects.toThrow(BadRequestException);
+    await expect(service.signin('aaa@aaa.aaa', 'aaa')).rejects.toThrow(
+      BadRequestException,
+    );
   });
 
   it('Throws if an invalid password is provided', async () => {
-    fakeUserService.find = () =>
-      Promise.resolve([
-        { email: 'asdfads@adfssf.dsfas', password: 'adsfasfa' } as User,
-      ]);
-
-    await expect(
-      service.signin('adsfaadsf@asdfas.fasdf', 'asdfasdf'),
-    ).rejects.toThrow(BadRequestException);
+    await service.signup('aaa@aaa.aaa', 'aaa');
+    await expect(service.signin('aaa@aaa.aaa', 'bbb')).rejects.toThrow(
+      BadRequestException,
+    );
   });
 
   it('Returns a user if correct password is provided', async () => {
