@@ -53,4 +53,10 @@ describe('AuthService', () => {
       BadRequestException,
     );
   });
+
+  it('Throws if signin is called with an unused email', async () => {
+    await expect(
+      service.signin('asdfasfas@asdfa.adsf', 'asdfasdf'),
+    ).rejects.toThrow(BadRequestException);
+  });
 });
