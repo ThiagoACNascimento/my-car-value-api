@@ -12,7 +12,7 @@ export class Report {
   make: string;
 
   @Column()
-  module: string;
+  model: string;
 
   @Column()
   year: number;
