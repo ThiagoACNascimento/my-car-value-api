@@ -12,8 +12,8 @@ POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-    "email":  "monika@fasdfaf.dfds",
-    "password": "12312"
+    "email":  "monikaaaa@fasdfaf.dfds",
+    "password": "12312132313"
 }
 
 ### Signout
