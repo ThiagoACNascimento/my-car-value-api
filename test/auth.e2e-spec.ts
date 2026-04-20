@@ -16,7 +16,7 @@ describe('Authentication System', () => {
     await app.init();
   });
 
-  it('Handles a signup request', () => {
+  it('Handles a signup request', async () => {
     const email = 'adfsdasdffafds@fdassf.dsf';
 
     return request(app.getHttpServer())
