@@ -7,7 +7,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ReportsModule } from './reports/reports.module';
 import cookieSession from 'cookie-session';
-import dbConfig from '../ormconfig.js';
+import dbConfig from '../ormconfig';
 
 @Module({
   imports: [
