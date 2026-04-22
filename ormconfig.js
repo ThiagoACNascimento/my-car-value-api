@@ -10,8 +10,9 @@ switch (process.env.NODE_ENV) {
   case 'test':
     Object.assign(dbConfig, {
       type: 'sqlite',
-      database: 'db.sqlite',
+      database: 'test.sqlite',
       entities: ['**/*.entity.ts'],
+      migrationsRun: true,
     });
     break;
 
